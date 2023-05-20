@@ -1,5 +1,8 @@
 package com.fpoly.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+import com.fpoly.model.Country;
 import com.fpoly.model.Staff;
 
 @Controller
@@ -27,5 +31,23 @@ public class StaffController {
     public String save(@ModelAttribute("staff") Staff staff){
         staff.setFullname(staff.getFullname().toUpperCase());
         return "staff";
+    }
+
+    @ModelAttribute("countries")
+    public List<Country> getCountries(){
+        List<Country> countries = new ArrayList<>();
+        Country country1 = new Country();
+        country1.setId("VN");
+        country1.setCountryName("Việt Nam");
+        countries.add(country1);
+        Country country2 = new Country();
+        country2.setId("US");
+        country2.setCountryName("United States");
+        countries.add(country2);
+        Country country3 = new Country();
+        country3.setId("FR");
+        country3.setCountryName("France");
+        countries.add(country3);
+        return countries;
     }
 }

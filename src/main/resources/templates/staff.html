@@ -16,6 +16,13 @@
             <p>Email: <input type="email" th:field="*{email}" /></p>
             <p>Salary: <input type="text" th:field="*{salary}" /></p>
             <p>Position: <input type="text" th:field="*{position}" /></p>
+
+            <select name="country" class="form-control" id="dropDownList">
+                <option value="0">select option</option>
+                <option th:each="country : ${countries}" th:value="${country.id}" 
+                th:text="${country.countryName}"></option>
+            </select>
+
             <button type="submit">Save</button>
         </form>
     </body>
