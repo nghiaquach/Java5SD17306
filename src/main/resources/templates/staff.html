@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Staff</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <h1>Form</h1>
+        <form action="#" th:action="@{/staff/save}" th:object="${staff}" method="post">
+            <p>Id: <input type="text" th:field="*{id}" /></p>
+            <p>Fullname: <input type="text" th:field="*{fullname}" /></p>
+            <p>Email: <input type="email" th:field="*{email}" /></p>
+            <p>Salary: <input type="text" th:field="*{salary}" /></p>
+            <p>Position: <input type="text" th:field="*{position}" /></p>
+            <button type="submit">Save</button>
+        </form>
+    </body>
+</html>
