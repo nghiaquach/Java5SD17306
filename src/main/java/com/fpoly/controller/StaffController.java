@@ -3,8 +3,10 @@ package com.fpoly.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.fasterxml.jackson.annotation.JsonCreator.Mode;
 import com.fpoly.model.Country;
 import com.fpoly.model.Staff;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class StaffController {
@@ -28,7 +32,10 @@ public class StaffController {
     }
 
     @PostMapping("/staff/save")
-    public String save(@ModelAttribute("staff") Staff staff){
+    public String save(@Valid @ModelAttribute("staff") Staff staff, BindingResult result){
+        if(result.hasErrors()){
+            return "staff";
+        }
         staff.setFullname(staff.getFullname().toUpperCase());
         return "staff";
     }

@@ -1,8 +1,13 @@
 package com.fpoly.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+
 public class Staff {
     String id;
+    @Size(min = 20, message = "{Size.Staff.Fullname}")
     String fullname;
+    @Email
     String email;
     Double salary;
     String position;
