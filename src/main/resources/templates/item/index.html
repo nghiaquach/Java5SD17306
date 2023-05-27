@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <!-- <th scope="col">Quantity</th>
+                <th scope="col">Amount</th> -->
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item: ${items}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.price}"></td>
+                    <!-- <td th:text="${item.qty}"></td>
+                    <td th:text="${#numbers.formatInteger(item.qty*item.price,0)}"></td> -->
+                    <td><a th:href="@{/cart/add/__${item.id}__}">Add To Cart</a></td>
+                </tr>
+                </tbody>
+                </table>
+    </div>
+    <!-- Include Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

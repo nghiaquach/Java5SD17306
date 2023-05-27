@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Shopping Cart Page</title>
+    <!-- Include Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item, iStat: ${cart.items}">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.name}"></td>
+                    <td th:text="${item.price}"></td>
+                    <td><input class="qty" th:onchange="refreshCart([[${item}]],[[${iStat}]])" type="number" th:value="${item.qty}"></td>
+                    <td class="amount" th:text="${#numbers.formatInteger(item.qty*item.price,0)}"></td>
+                    <td><a th:href="@{/cart/remove/__${item.id}__}">Remove</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/cart/clear}">Clear Cart</a>
+        <a th:href="@{/item/index}">Add More</a>
+    </div>
+    <!-- Include Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+
+        function refreshCart(item,iStat) {
+            item.qty = $(".qty")[iStat.index].value;
+            $.ajax({
+                type: "POST",
+                url: "/cart/item/update",
+                data: JSON.stringify(item),
+                contentType: "application/json",
+                success: function (response) {
+                    console.log(response);
+                    $(".amount")[iStat.index].textContent = response.price * response.qty;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>
