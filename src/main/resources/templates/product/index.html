@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Product</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Report</h1>
+        
+        <form action="#" th:action="@{search}" th:object="${searchForm}" method="get">
+            <div class="form-group">
+                <label for="searchInput">Search:</label>
+                <input type="text" class="form-control" id="searchInput" name="searchText" th:field="*{searchText}">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        
+        
+        <div th:if="${searchResults}">
+            <h3>Search Results:</h3>
+            <ul class="list-group">
+                <li class="list-group-item" th:each="result : ${searchResults}" th:text="${result.name}"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
